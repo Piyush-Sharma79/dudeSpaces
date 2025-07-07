@@ -1,0 +1,69 @@
+# Dependencies
+**/node_modules
+.pnp
+.pnp.js
+
+# Testing
+**/coverage
+
+# Production
+**/build
+**/dist
+**/dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
+**/.tsbuildinfo
+
+# Vite
+.vite
+
+# Misc
+.cache
+.temp
+.tmp
+*.pem
+
+# Debug
+.debug
+
+# Stream API keys and secrets
+**/stream-config.json
+
+# Server specific
+server/dist
+server/coverage
+
+# Client specific
+client/dist
+client/.cache
+client/build

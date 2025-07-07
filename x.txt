@@ -1,0 +1,27 @@
+started wuth two folders client and server apps frontend is in react with othr side mainly handled with stream api
+
+first made a vite react project then install deopendencies
+hookform @hookform/resolvers for forms the yup for connecting hookform with react
+stream-io/video-react-sdk
+cryptojs
+universal-cookie
+react-router-dom
+@types/crypto-js
+then setup tailwind
+define routes
+create form
+import yup resolver,useform,yup,submit handler
+create a schema with yup
+in use form put resolver and use it to get values
+also define type of the data passed through form
+to the stream side forst dependencies
+install typescript
+to start write npx tsc --init
+it will create a tsconfig.json
+in that file first uncomment the root dir then output directory
+packages to install
+@stream-io/node-sdk cors express
+@types/cors @types/express @types/node nodemon ts-node(to run typescript) typescript
+define nodemon config
+start impelmenting standard express server then define routes in a different folder to maintain the code
+creates routes
