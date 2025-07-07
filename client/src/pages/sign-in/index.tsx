@@ -6,6 +6,10 @@ import Cookies from "universal-cookie";
 import { StreamVideoClient, User } from "@stream-io/video-react-sdk";
 import { useUser } from "../../user-context";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { useState } from "react";
 
 interface FormValues {
   username: string;
@@ -17,6 +21,7 @@ export const SignIn = () => {
 
   const { setClient, setUser } = useUser();
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   const schema = yup.object().shape({
     username: yup
@@ -52,7 +57,8 @@ export const SignIn = () => {
     });
 
     if (!response.ok) {
-      alert("Some error occuredwhile signing in");
+      const errorData = await response.json();
+      setError(errorData.message || "An unknown error occurred.");
       return;
     }
 
@@ -89,23 +95,40 @@ export const SignIn = () => {
   };
 
   return (
-    <div>
-      <h1>Welcome to Dude Spaces</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Username</label>
-          <input type="text" id="username" {...register("username")} />
-          {errors.username && (
-            <p style={{ color: "red" }}>{errors.username.message}</p>
-          )}
+    <div className="sign-in-container flex flex-col items-center justify-center min-h-screen p-4 bg-transparent">
+      <div className="sign-in-content w-full max-w-md">
+        {/* Logo Section */}
+        <div className="logo-section flex flex-col items-center justify-center mb-8 animate-slide-up">
+          <img 
+            src="/logo-color.svg" 
+            alt="DudeSpaces Logo" 
+            className="w-24 h-24 mb-4 animate-glow"
+          />
+          <h1 className="text-4xl font-bold gradient-text" style={{ fontFamily: 'Summer Outfit'}}>DudeSpaces</h1>
+          <p className="text-lg text-gray-300">Where Legends Connect</p>
         </div>
-        <div>
-          <label>Name</label>
-          <input type="text" id="name" {...register("name")} />
-          {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
-        </div>
-        <button type="submit">Sign In</button>
-      </form>
+
+        {/* Sign-In Form */}
+        <Card className="w-full glass animate-fade-in">
+          <CardHeader>
+            <CardTitle className="title text-center">Join the Space</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-2">
+                <Input {...register("username")} placeholder="Username" className="input" />
+                {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+              </div>
+              <div className="space-y-2">
+                <Input {...register("name")} placeholder="Your Name" className="input" />
+                {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+              </div>
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              <Button type="submit" className="w-full btn">Sign In</Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

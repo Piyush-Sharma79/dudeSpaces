@@ -14,24 +14,26 @@ import { useUser } from "./user-context";
 function App() {
   const { call } = useUser();
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route
-          path="/room"
-          element={
-            call ? (
-              <StreamCall call={call}>
-                <Room />
-              </StreamCall>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-      </Routes>
-    </Router>
+    <div className="min-h-screen">
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route
+            path="/room"
+            element={
+              call ? (
+                <StreamCall call={call}>
+                  <Room />
+                </StreamCall>
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

@@ -1,75 +1,51 @@
 import { Avatar, StreamVideoParticipant } from "@stream-io/video-react-sdk";
 
-const speakingSVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-  >
-    <circle cx="4" cy="12" r="3" fill="currentColor">
-      <animate
-        id="svgSpinners3DotsBounce0"
-        attributeName="cy"
-        begin="0;svgSpinners3DotsBounce1.end+0.25s"
-        calcMode="spline"
-        dur="0.6s"
-        keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        values="12;6;12"
-      />
-    </circle>
-    <circle cx="12" cy="12" r="3" fill="currentColor">
-      <animate
-        attributeName="cy"
-        begin="svgSpinners3DotsBounce0.begin+0.1s"
-        calcMode="spline"
-        dur="0.6s"
-        keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        values="12;6;12"
-      />
-    </circle>
-    <circle cx="20" cy="12" r="3" fill="currentColor">
-      <animate
-        id="svgSpinners3DotsBounce1"
-        attributeName="cy"
-        begin="svgSpinners3DotsBounce0.begin+0.2s"
-        calcMode="spline"
-        dur="0.6s"
-        keySplines=".33,.66,.66,1;.33,0,.66,.33"
-        values="12;6;12"
-      />
-    </circle>
-  </svg>
-);
 export const Participant = ({
   participant,
 }: {
   participant: StreamVideoParticipant;
 }) => {
-  // `isSpeaking` information is available on the participant object,
-  // and it is automatically detected by our system and updated by our SDK.
   const { isSpeaking } = participant;
 
   return (
-    <div className="participant">
-      {isSpeaking && speakingSVG}
-      <div
-        style={{
-          width: 60,
-          height: 60,
-          borderRadius: "50%",
-          overflow: "hidden",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Avatar
-          imageSrc={participant.image}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
+    <div className={`participant ${isSpeaking ? 'speaking' : ''}`}>
+      {/* Speaking indicator */}
+      {isSpeaking && (
+        <div className="absolute -top-3 -right-3 z-10">
+          <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-yellow-400 rounded-full flex items-center justify-center animate-pulse">
+            <span className="text-sm">🎤</span>
+          </div>
+        </div>
+      )}
+      
+      {/* Avatar */}
+      <div className="relative">
+        <div className={`w-20 h-20 rounded-full overflow-hidden border-3 transition-all duration-300 ${
+          isSpeaking 
+            ? 'border-green-400 shadow-lg shadow-green-400/50 animate-pulse' 
+            : 'border-white/20'
+        }`}>
+          <Avatar
+            imageSrc={participant.image}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+        
+        {/* Online indicator */}
+        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-gray-900 animate-pulse"></div>
       </div>
-      <div>{participant.name}</div>
+      
+      {/* Name */}
+      <div className="text-center mt-3">
+        <div className="text-sm font-semibold text-white">
+          {participant.name}
+        </div>
+        {isSpeaking && (
+          <div className="text-xs text-green-400 font-medium mt-1 animate-pulse">
+            Speaking
+          </div>
+        )}
+      </div>
     </div>
   );
 };
