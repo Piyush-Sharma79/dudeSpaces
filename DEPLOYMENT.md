@@ -7,35 +7,38 @@ This project consists of two parts:
 
 ## Deployment Strategy: Separate Hosting
 
-### Server Deployment (Railway)
+### Server Deployment (Render)
 
 1. **Prepare the server for deployment:**
    - The server is already configured with proper build scripts
    - Environment variables are set up in `.env`
 
-2. **Deploy to Railway:**
-   - Go to [railway.app](https://railway.app)
+2. **Deploy to Render:**
+   - Go to [render.com](https://render.com)
    - Sign up/login with GitHub
-   - Click "New Project" → "Deploy from GitHub repo"
-   - Select your repository
-   - Railway will auto-detect it's a Node.js project
-   - Set the following environment variables in Railway:
+   - Click "New" → "Web Service"
+   - Connect your GitHub repository
+   - Configure the service:
+     - **Root Directory**: `server`
+     - **Build Command**: `npm install && npm run build`
+     - **Start Command**: `npm start`
+     - **Environment**: Node
+   - Set the following environment variables in Render:
      ```
      STREAM_API_KEY=hyfhuskn2cs3
      STREAM_API_SECRET=um98pvqvsmg6nzcqutxtm49c4a2yhyh5ysbjfvdgm4m47saxaff4avdu4jryct23
-     PORT=3000
      ```
-   - Railway will automatically run `npm run build` and `npm start`
+   - Click "Create Web Service"
 
-3. **Note your Railway server URL** (e.g., `https://your-app-name.railway.app`)
+3. **Note your Render server URL** (e.g., `https://your-app-name.onrender.com`)
 
 ### Client Deployment (Vercel)
 
 1. **Update environment variables:**
-   - Update `client/.env` with your Railway server URL:
+   - Update `client/.env` with your Render server URL:
      ```
      VITE_STREAM_API_KEY=hyfhuskn2cs3
-     VITE_SERVER_URL=https://your-railway-app.railway.app
+     VITE_SERVER_URL=https://your-render-app.onrender.com
      ```
 
 2. **Deploy to Vercel:**
@@ -47,15 +50,16 @@ This project consists of two parts:
    - Set the following environment variables in Vercel:
      ```
      VITE_STREAM_API_KEY=hyfhuskn2cs3
-     VITE_SERVER_URL=https://your-railway-app.railway.app
+     VITE_SERVER_URL=https://your-render-app.onrender.com
      ```
    - Deploy!
 
 ### Important Notes
 
-- Make sure to update `VITE_SERVER_URL` with your actual Railway deployment URL
+- Make sure to update `VITE_SERVER_URL` with your actual Render deployment URL
 - The server needs to be deployed first to get the URL for the client
 - Both platforms offer free tiers perfect for personal projects
+- Render's free tier may "spin down" after 15 minutes of inactivity, causing a brief delay on first request
 
 ## Local Development
 
