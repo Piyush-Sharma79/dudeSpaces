@@ -43,7 +43,7 @@ export const UserProvider = (props: UserProviderProps) => {
     name,
   }
   const myClient = new StreamVideoClient({
-    apiKey: "hyfhuskn2cs3",
+    apiKey: import.meta.env.VITE_STREAM_API_KEY,
     user,
     token,
   });
