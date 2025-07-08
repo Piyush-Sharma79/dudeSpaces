@@ -43,7 +43,7 @@ export const SignIn = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
     const { username, name } = data;
-    const response = await fetch("http://localhost:3000/auth/createUser", {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/createUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
