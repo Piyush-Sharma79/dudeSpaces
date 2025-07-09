@@ -4,7 +4,6 @@ import {client} from "../stream-client";
 import { UserRequest } from "@stream-io/node-sdk";
 const router =Router();
 
-
 router.post("/createUser",async (req:Request,res:Response):Promise<any>=>{
     const {username,name,image} = req.body;
 

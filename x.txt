@@ -1,5 +1,4 @@
 started wuth two folders client and server apps frontend is in react with othr side mainly handled with stream api
-
 first made a vite react project then install deopendencies
 hookform @hookform/resolvers for forms the yup for connecting hookform with react
 stream-io/video-react-sdk
