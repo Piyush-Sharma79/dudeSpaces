@@ -10,6 +10,7 @@ import { SignIn } from "./pages/sign-in";
 import { Room } from "./pages/room";
 import { StreamCall } from "@stream-io/video-react-sdk";
 import { useUser } from "./user-context";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const { call } = useUser();
@@ -33,6 +34,7 @@ function App() {
           />
         </Routes>
       </Router>
+      <Analytics />
     </div>
   );
 }
