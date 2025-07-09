@@ -14,7 +14,7 @@ import { useUser } from "./user-context";
 function App() {
   const { call } = useUser();
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-space-grotesk bg-dark text-white antialiased">
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />

@@ -90,41 +90,58 @@ export const SignIn = () => {
     cookies.set("username", responseData.username, {
       expires,
     });
-    
+
     navigate("/");
   };
 
   return (
-    <div className="sign-in-container flex flex-col items-center justify-center min-h-screen p-4 bg-transparent">
-      <div className="sign-in-content w-full max-w-md">
+    <div className="sign-in-container p-4">
+      <div className="sign-in-content">
         {/* Logo Section */}
-        <div className="logo-section flex flex-col items-center justify-center mb-8 animate-slide-up">
-          <img 
-            src="/logo-color.svg" 
-            alt="DudeSpaces Logo" 
-            className="w-24 h-24 mb-4 animate-glow"
-          />
-          <h1 className="text-4xl font-bold gradient-text" style={{ fontFamily: 'Summer Outfit'}}>DudeSpaces</h1>
-          <p className="text-lg text-gray-300">Where Legends Connect</p>
+        <div className="logo-section animate-fade-in">
+          <div className="relative mb-10">
+            <img
+              src="/logo-color.svg"
+              alt="DudeSpaces Logo"
+              className="w-28 h-28 mx-auto animate-glow"
+            />
+            <div className="absolute inset-0 bg-[#92FF58]/10 blur-3xl rounded-full -z-10 animate-pulse"></div>
+          </div>
+          <h1 className="app-title font-burtons mb-3">DudeSpaces</h1>
+          <p className="app-tagline mb-10">Where conversations happen</p>
         </div>
 
         {/* Sign-In Form */}
-        <Card className="w-full glass animate-fade-in">
-          <CardHeader>
-            <CardTitle className="title text-center">Join the Space</CardTitle>
+        <Card className="glass animate-slide-up overflow-hidden">
+          <CardHeader className="px-8 py-6 border-b border-[#92FF58]/10">
+            <CardTitle className="text-2xl text-center font-acorn font-light">Join the Space</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
-                <Input {...register("username")} placeholder="Username" className="input" />
-                {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+                <label htmlFor="username" className="block mb-2 text-sm font-medium text-white/80">Username</label>
+                <Input
+                  id="username"
+                  {...register("username")}
+                  placeholder="Enter your username"
+                  className="input"
+                />
+                {errors.username && <p className="text-red-400 text-sm font-medium pl-1 mt-1">{errors.username.message}</p>}
               </div>
               <div className="space-y-2">
-                <Input {...register("name")} placeholder="Your Name" className="input" />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+                <label htmlFor="name" className="block mb-2 text-sm font-medium text-white/80">Full Name</label>
+                <Input
+                  id="name"
+                  {...register("name")}
+                  placeholder="Enter your full name"
+                  className="input"
+                />
+                {errors.name && <p className="text-red-400 text-sm font-medium pl-1 mt-1">{errors.name.message}</p>}
               </div>
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-              <Button type="submit" className="w-full btn">Sign In</Button>
+              {error && <p className="text-red-400 text-sm font-medium text-center">{error}</p>}
+              <Button type="submit" className="w-full btn py-6 text-base">
+                <span className="mr-2">Sign In</span>
+              </Button>
             </form>
           </CardContent>
         </Card>

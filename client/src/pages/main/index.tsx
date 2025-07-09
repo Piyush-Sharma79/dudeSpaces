@@ -74,7 +74,7 @@ export const MainPage = () => {
     const hash = CryptoJS.SHA256(roomName).toString(CryptoJS.enc.Base64);
     return hash.replace(/[^a-zA-Z0-9_-]/g, "");
   };
-  
+
   const createRoom = async () => {
     const { name, description } = newRoom;
     if (!client || !user || !name || !description) {
@@ -122,63 +122,78 @@ export const MainPage = () => {
 
   return (
     <StreamVideo client={client!}>
-      <div className="home container mx-auto p-4 md:p-6 animate-fade-in">
-        <div className="text-center mb-12 animate-slide-up">
-          <h1 className="title" style={{ fontFamily: 'Summer Outfit'}}>Welcome to DudeSpaces</h1>
-          <p className="description">Create a new audio room or join an existing one.</p>
+      <div className="home container mx-auto p-6 md:p-10 animate-fade-in">
+        <div className="text-center mb-16 animate-slide-up flex flex-col items-center justify-center">
+          <div className="flex justify-center items-center w-full mb-4">
+            <img src="/logo-color.svg" alt="DudeSpaces Logo" className="w-20 h-20 mx-auto animate-glow" />
+          </div>
+          <h1 className="title">Welcome to DudeSpaces</h1>
+          <p className="description max-w-2xl mx-auto mt-4">Create a new audio room or join an existing one to connect with other users in real-time.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto">
           {/* Create Room Section */}
-          <div className="create-room-section animate-fade-in">
-            <Card className="glass">
-              <CardHeader>
-                <CardTitle className="subtitle">Create a New Room</CardTitle>
-                <CardDescription>Start a conversation on any topic.</CardDescription>
+          <div className="create-room-section animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <Card className="glass h-full overflow-hidden">
+              <CardHeader className="px-10 py-8 border-b border-[#92FF58]/10">
+                <CardTitle className="subtitle text-2xl">Create a New Room</CardTitle>
+                <CardDescription className="mt-2 text-base">Start a conversation on any topic and invite others to join.</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <Input
-                  placeholder="Room Name"
-                  value={newRoom.name}
-                  onChange={(e) => setNewRoom({ ...newRoom, name: e.target.value })}
-                  className="input"
-                />
-                <Input
-                  placeholder="Room Description"
-                  value={newRoom.description}
-                  onChange={(e) => setNewRoom({ ...newRoom, description: e.target.value })}
-                  className="input"
-                />
-                {error && <p className="text-red-500 text-sm">{error}</p>}
-                <Button onClick={createRoom} className="w-full btn">Create Room</Button>
+              <CardContent className="space-y-8 p-10">
+                <div>
+                  <label htmlFor="roomName" className="block mb-3 text-sm font-medium text-white/80">Room Name</label>
+                  <Input
+                    id="roomName"
+                    placeholder="Enter a name for your room"
+                    value={newRoom.name}
+                    onChange={(e) => setNewRoom({ ...newRoom, name: e.target.value })}
+                    className="input py-4 px-5 text-base"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="roomDesc" className="block mb-3 text-sm font-medium text-white/80">Room Description</label>
+                  <Input
+                    id="roomDesc"
+                    placeholder="What's this room about?"
+                    value={newRoom.description}
+                    onChange={(e) => setNewRoom({ ...newRoom, description: e.target.value })}
+                    className="input py-4 px-5 text-base"
+                  />
+                </div>
+                {error && <p className="text-red-400 text-sm font-medium mt-2">{error}</p>}
+                <Button onClick={createRoom} className="w-full btn py-5 text-base mt-2">
+                  <span className="mr-2">Create Room</span>
+                </Button>
               </CardContent>
             </Card>
           </div>
 
           {/* Available Rooms Section */}
-          <div className="available-rooms-section animate-fade-in">
-            <h2 className="subtitle text-center mb-4">Available Rooms</h2>
+          <div className="available-rooms-section animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h2 className="subtitle text-center mb-6 text-2xl">Available Rooms</h2>
             {availableRooms.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 {availableRooms.map((room) => (
-                  <Card key={room.id} className="card glass-light cursor-pointer" onClick={() => joinCall(room.id)}>
-                    <CardHeader>
+                  <Card key={room.id} className="card glass-light cursor-pointer transition-all duration-300" onClick={() => joinCall(room.id)}>
+                    <CardHeader className="px-6 py-5">
                       <CardTitle className="text-lg font-semibold truncate">{room.title}</CardTitle>
                       <CardDescription className="truncate">{room.description}</CardDescription>
                     </CardHeader>
-                    <CardContent className="flex justify-between items-center">
-                      <div className="text-sm text-gray-400">By {room.createdBy}</div>
-                      <div className="flex items-center gap-2 text-sm font-medium participation-count">
+                    <CardContent className="flex justify-between items-center px-6 py-4 border-t border-[#92FF58]/10">
+                      <div className="text-sm text-white/60 font-space-grotesk">Hosted by {room.createdBy}</div>
+                      <div className="participation-count">
                         <span>{room.participantsLength}</span>
-                        <span>👤</span>
+                        <span className="text-[#92FF58]">●</span>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
             ) : (
-              <div className="text-center text-gray-400 p-8 glass-light rounded-2xl">
-                <p>No available rooms at the moment. Why not create one?</p>
+              <div className="text-center glass-light rounded-2xl p-10">
+                <div className="text-4xl mb-4">🎧</div>
+                <p className="text-white/60 font-space-grotesk">No available rooms at the moment.</p>
+                <p className="text-white/60 font-space-grotesk mt-2">Create one to get started!</p>
               </div>
             )}
           </div>

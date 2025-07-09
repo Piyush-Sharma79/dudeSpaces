@@ -8,13 +8,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-2xl border-2 border-green-400/15 bg-black/20 backdrop-blur-md p-6 shadow-lg hover:shadow-xl hover:shadow-green-400/10 transition-all duration-300 hover:-translate-y-1 hover:border-green-400/30 relative overflow-hidden group",
+        "rounded-2xl border border-[#92FF58]/10 bg-[#0C0C14]/80 backdrop-blur-md p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#92FF58]/20 hover:shadow-xl hover:shadow-[#92FF58]/10 relative overflow-hidden group",
         className
       )}
       {...props}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      {props.children}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#92FF58]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="relative z-10">{props.children}</div>
     </div>
   )
 )
@@ -39,7 +39,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-xl font-bold leading-none tracking-tight text-white",
+      "font-acorn text-xl font-semibold leading-none tracking-tight text-white",
       className
     )}
     {...props}
@@ -53,7 +53,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-base text-gray-300 leading-relaxed", className)}
+    className={cn("font-space-grotesk text-base text-gray-300 leading-relaxed", className)}
     {...props}
   />
 ))
@@ -63,7 +63,7 @@ const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-0", className)} {...props} />
+  <div ref={ref} className={cn("p-0 relative z-10", className)} {...props} />
 ))
 CardContent.displayName = "CardContent"
 

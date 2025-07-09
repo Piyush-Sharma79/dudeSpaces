@@ -8,40 +8,45 @@ export const Participant = ({
   const { isSpeaking } = participant;
 
   return (
-    <div className={`participant ${isSpeaking ? 'speaking' : ''}`}>
+    <div className={`participant ${isSpeaking ? 'speaking' : ''} px-5 py-6`}>
       {/* Speaking indicator */}
       {isSpeaking && (
-        <div className="absolute -top-3 -right-3 z-10">
-          <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-yellow-400 rounded-full flex items-center justify-center animate-pulse">
-            <span className="text-sm">🎤</span>
+        <div className="absolute -top-2 -right-2 z-10">
+          <div className="w-7 h-7 bg-gradient-to-r from-[#92FF58] to-[#4DCD4D] rounded-full flex items-center justify-center">
+            <span className="text-sm">🎙️</span>
           </div>
         </div>
       )}
-      
-      {/* Avatar */}
-      <div className="relative">
-        <div className={`w-20 h-20 rounded-full overflow-hidden border-3 transition-all duration-300 ${
-          isSpeaking 
-            ? 'border-green-400 shadow-lg shadow-green-400/50 animate-pulse' 
-            : 'border-white/20'
+
+      {/* Avatar with glow effect */}
+      <div className="relative mb-4">
+        <div className={`w-24 h-24 rounded-full overflow-hidden transition-all duration-300 mx-auto ${
+          isSpeaking
+            ? 'ring-2 ring-[#92FF58] shadow-lg shadow-[#92FF58]/30'
+            : 'ring-1 ring-white/10'
         }`}>
           <Avatar
             imageSrc={participant.image}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
+
+          {/* Glow effect for speaking participants */}
+          {isSpeaking && (
+            <div className="absolute inset-0 bg-gradient-to-b from-[#92FF58]/20 to-transparent mix-blend-overlay"></div>
+          )}
         </div>
-        
+
         {/* Online indicator */}
-        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-gray-900 animate-pulse"></div>
+        <div className="absolute -bottom-1 right-6 w-4 h-4 bg-[#92FF58] rounded-full ring-2 ring-[#0C0C14]"></div>
       </div>
-      
+
       {/* Name */}
-      <div className="text-center mt-3">
-        <div className="text-sm font-semibold text-white">
+      <div className="text-center">
+        <div className="text-sm font-medium text-white/90 font-space-grotesk truncate max-w-[140px] mx-auto">
           {participant.name}
         </div>
         {isSpeaking && (
-          <div className="text-xs text-green-400 font-medium mt-1 animate-pulse">
+          <div className="text-xs text-[#92FF58] font-medium mt-1">
             Speaking
           </div>
         )}
